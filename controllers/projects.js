@@ -95,13 +95,13 @@ async function get_all_equipments(req, res) {
         let equipments = await equipment_model.find({
             project_id: project_id
         })
-        let equipment_dict = {}
-        equipments.forEach(equipment => {
-            equipment_dict[equipment._doc._id] = equipment
-        });
+        // let equipment_dict = {}
+        // equipments.forEach(equipment => {
+        //     equipment_dict[equipment._doc._id] = equipment
+        // });
 
         return res.status(200).json({
-            message: equipment_dict
+            message: equipments
         });
     }
 

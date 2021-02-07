@@ -1,13 +1,20 @@
 var mongoose = require("mongoose");
 var COLLECTION_NAME = "equipments";
+const {
+  ObjectId
+} = require('mongodb');
 
-var equimentTypeSchema = mongoose.Schema({
+
+var equimentSchema = mongoose.Schema({
+  project_id: mongoose.Schema.Types.ObjectId,
   name: String,
-  type: String, // object id and use ref
-  parent:String, // object id and use ref
+  type: mongoose.Schema.Types.ObjectId, // object id and use ref
+  parent: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+    default : ""
+  },
   property1: String,
-  property2: String
-
 });
 
-module.exports = mongoose.model(COLLECTION_NAME, equimentTypeSchema);
+module.exports = mongoose.model(COLLECTION_NAME, equimentSchema);

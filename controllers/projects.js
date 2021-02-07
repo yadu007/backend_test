@@ -148,6 +148,18 @@ async function get_all_equipment_types(req, res) {
     }
 }
 
+async function get_all_projects(req, res) {
+
+    let projects = await project_model.find({user_id:req.user._id})
+    if(!projects || !projects.length){
+        return res.status(400).json({
+            message: "No Projects Found"
+        });
+    }
+    return res.status(200).json({
+        message: projects
+    });
+}
 
 module.exports = {
     add_project,
@@ -155,5 +167,6 @@ module.exports = {
     remove_equipment,
     get_all_equipments,
     get_equipment_details,
-    get_all_equipment_types
+    get_all_equipment_types,
+    get_all_projects
 }

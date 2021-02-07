@@ -119,7 +119,7 @@ async function get_equipment_details(req, res) {
             message: 'Project Does Not Belong To The Requested User.'
         });
     }
-    let equipment_check = await equimentSchema.find({
+    let equipment_check = await equipment_model.find({
         project_id: project_id,
         _id: equipment_id
     })

@@ -1,11 +1,10 @@
-var mongoose = require("mongoose");
-var COLLECTION_NAME = "projects";
+let mongoose = require("mongoose");
+let COLLECTION_NAME = "projects";
 const {
     ObjectId
 } = require('mongodb');
 
-
-var equimentTypeSchema = mongoose.Schema({
+let equimentTypeSchema = mongoose.Schema({
     name: String,
     user_id: mongoose.Schema.Types.ObjectId
 });

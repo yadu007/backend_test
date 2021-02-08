@@ -1,8 +1,8 @@
-var mongoose = require("mongoose");
-
+let mongoose = require("mongoose");
 let project_model = require('../models/projects')
 let equipment_model = require('../models/equipments')
 let equipment_types_model = require('../models/equipment_types.js')
+let logger = require('../lib/logger')
 const ObjectID = require('mongodb').ObjectID;
 
 async function add_project(req, res) {
@@ -28,7 +28,6 @@ async function add_project(req, res) {
 }
 
 async function add_equipment(req, res) {
-
     let project_id = req.body.project_id
     let project = await project_model.findOne({
         _id: project_id
@@ -56,7 +55,6 @@ async function add_equipment(req, res) {
 }
 
 async function remove_equipment(req, res) {
-
     let project_id = req.body.project_id
     let project = await project_model.findOne({
         _id: project_id
@@ -72,7 +70,7 @@ async function remove_equipment(req, res) {
     })
     let should_delete_children = req.body.delete_children
     if (should_delete_children) {
-        let deleted = await equipment_model.deleteMany({
+        await equipment_model.deleteMany({
             parent: ObjectID(equipment_id)
         })
     }
@@ -82,7 +80,6 @@ async function remove_equipment(req, res) {
 }
 
 async function get_all_equipments(req, res) {
-
     let project_id = req.body.project_id
     let project = await project_model.findOne({
         _id: project_id
@@ -95,11 +92,6 @@ async function get_all_equipments(req, res) {
         let equipments = await equipment_model.find({
             project_id: project_id
         })
-        // let equipment_dict = {}
-        // equipments.forEach(equipment => {
-        //     equipment_dict[equipment._doc._id] = equipment
-        // });
-
         return res.status(200).json({
             message: equipments
         });
@@ -108,7 +100,6 @@ async function get_all_equipments(req, res) {
 }
 
 async function get_equipment_details(req, res) {
-
     let project_id = req.body.project_id
     let equipment_id = req.body.equipment_id
     let project = await project_model.findOne({
@@ -135,7 +126,6 @@ async function get_equipment_details(req, res) {
 }
 
 async function get_all_equipment_types(req, res) {
-
     let equipment_types_model_ = await equipment_types_model.find({})
     if (equipment_types_model_ && equipment_types_model_.length) {
         return res.status(200).json({
@@ -149,9 +139,10 @@ async function get_all_equipment_types(req, res) {
 }
 
 async function get_all_projects(req, res) {
-
-    let projects = await project_model.find({user_id:req.user._id})
-    if(!projects || !projects.length){
+    let projects = await project_model.find({
+        user_id: req.user._id
+    })
+    if (!projects || !projects.length) {
         return res.status(400).json({
             message: "No Projects Found"
         });

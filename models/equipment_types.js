@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var COLLECTION_NAME = "equipment_types";
+let mongoose = require("mongoose");
+let COLLECTION_NAME = "equipment_types";
 
-var equimentTypeSchema = mongoose.Schema({
+let equimentTypeSchema = mongoose.Schema({
   type: {
     type: String,
     required: true,
@@ -10,3 +10,5 @@ var equimentTypeSchema = mongoose.Schema({
 });
 
 module.exports = mongoose.model(COLLECTION_NAME, equimentTypeSchema);
+
+// meter skid

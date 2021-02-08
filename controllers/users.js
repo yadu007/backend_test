@@ -1,16 +1,23 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+let mongoose = require('mongoose'),
   jwt = require('jsonwebtoken'),
   bcrypt = require('bcrypt'),
-  User = mongoose.model('User');
+  User = require('../models/users'),
+  logger = require('../lib/logger')
 
-exports.register = function (req, res) {
-  var newUser = new User(req.body);
+exports.register = async function (req, res) {
+  let check_user = await User.find({email:req.body.email})
+  if(check_user && check_user.length){
+    return res.status(400).send({
+      message: "User Already Present"
+    });
+  }
+  let newUser = new User(req.body);
   newUser.hash_password = bcrypt.hashSync(req.body.password, 10);
   newUser.save(function (err, user) {
     if (err) {
-      console.log(err);
+      logger.error("Error On Creating User ",err)
       return res.status(400).send({
         message: err
       });
@@ -25,7 +32,9 @@ exports.sign_in = function (req, res) {
   User.findOne({
     email: req.body.email
   }, function (err, user) {
-    if (err) throw err;
+    if (err) {
+      logger.error("Error On Finding User")
+    } err;
     if (!user || !user.comparePassword(req.body.password)) {
       return res.status(401).json({
         message: 'Authentication failed. Invalid user or password.'

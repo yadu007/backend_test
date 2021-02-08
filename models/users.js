@@ -1,13 +1,13 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+let mongoose = require('mongoose'),
   bcrypt = require('bcrypt'),
   Schema = mongoose.Schema;
 
 /**
  * User Schema
  */
-var UserSchema = new Schema({
+let UserSchema = new Schema({
   fullName: {
     type: String,
     trim: true,
@@ -34,22 +34,8 @@ UserSchema.methods.comparePassword = function (password) {
 };
 
 
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
 
 
 
-// var mongoose = require("mongoose");
-// var COLLECTION_NAME = "users";
 
-// var userSchema = mongoose.Schema({
-//   email: {
-//     type: String,
-//     required: true,
-//     unique: true
-//   },
-//   password: String,
-//   createdAt: Date,
-//   updatedAt: Date
-// });
-
-// module.exports = mongoose.model(COLLECTION_NAME, userSchema);

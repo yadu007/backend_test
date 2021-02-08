@@ -1,11 +1,10 @@
-var mongoose = require("mongoose");
-var COLLECTION_NAME = "equipments";
+let mongoose = require("mongoose");
+let COLLECTION_NAME = "equipments";
 const {
   ObjectId
 } = require('mongodb');
 
-
-var equimentSchema = mongoose.Schema({
+let equimentSchema = mongoose.Schema({
   project_id: mongoose.Schema.Types.ObjectId,
   name: String,
   type: mongoose.Schema.Types.ObjectId, // object id and use ref

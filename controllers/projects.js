@@ -5,6 +5,7 @@ let equipment_types_model = require('../models/equipment_types.js')
 let logger = require('../lib/logger')
 const ObjectID = require('mongodb').ObjectID;
 
+
 async function add_project(req, res) {
     let project_name = req.body.project_name;
     let user_id = req.user._id
@@ -152,6 +153,36 @@ async function get_all_projects(req, res) {
     });
 }
 
+async function getEquipmentListForUser(req, res) {
+    let json_eq = require('../json_datas/equipments.json')
+    return res.status(200).json(json_eq);
+}
+
+async function getEquipmentMonthlyVols(req, res) {
+    if(req.query.equipment_id == "558ddfdd3620c111fe112b4671b77c6d"){
+      let json_eq = require('../json_datas/meterMonthly.json')
+      return res.status(200).json(json_eq);
+      }
+
+    else if(req.query.equipment_id == "4107c0a4db3fa48dd9aac2701b32b143"){
+      let json_eq = require('../json_datas/tankMonthly.json')
+      return res.status(200).json(json_eq);
+      }
+  }
+
+async function getEquipmentDailyVols(req, res) {
+
+  if(req.query.equipment_id == "558ddfdd3620c111fe112b4671b77c6d"){
+    let json_eq = require('../json_datas/meterDaily.json')
+    return res.status(200).json(json_eq);
+    }
+
+  else if(req.query.equipment_id == "4107c0a4db3fa48dd9aac2701b32b143"){
+    let json_eq = require('../json_datas/tankDaily.json')
+    return res.status(200).json(json_eq);
+    }
+
+}
 module.exports = {
     add_project,
     add_equipment,
@@ -159,5 +190,9 @@ module.exports = {
     get_all_equipments,
     get_equipment_details,
     get_all_equipment_types,
-    get_all_projects
+    get_all_projects,
+
+    getEquipmentListForUser,
+    getEquipmentMonthlyVols,
+    getEquipmentDailyVols
 }

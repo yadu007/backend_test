@@ -10,19 +10,19 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cors());
 
-(async () => {
-  try {
-    await mongoose.connect(process.env.QB_MONGO_URL, {
-      useCreateIndex: true,
-      useNewUrlParser: true
-    });
-    logger.info('Connected To MongoDB');
-
-  } catch (err) {
-    logger.error('Mongo Connection Error', err);
-
-  }
-})()
+// (async () => {
+//   try {
+//     await mongoose.connect(process.env.QB_MONGO_URL, {
+//       useCreateIndex: true,
+//       useNewUrlParser: true
+//     });
+//     logger.info('Connected To MongoDB');
+//
+//   } catch (err) {
+//     logger.error('Mongo Connection Error', err);
+//
+//   }
+// })()
 
 const routers = require('./routers')
 app.use('/', routers)
